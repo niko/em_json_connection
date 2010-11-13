@@ -14,7 +14,6 @@ Gem::Specification.new do |s|
   
   s.files        = Dir['lib/**/*.rb']
   s.test_files   = Dir['spec/**/*_spec.rb']
-  s.add_dependency "is_a_collection"
   
   s.platform     = Gem::Platform::RUBY
   s.require_path = 'lib'
