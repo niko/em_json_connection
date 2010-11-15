@@ -12,6 +12,8 @@ Gem::Specification.new do |s|
   s.summary      = "Adds a JSON layer to a plain Eventmachine socket connection"
   s.description  = s.summary
   
+  s.add_dependency "eventmachine"
+  
   s.files        = Dir['lib/**/*.rb']
   s.test_files   = Dir['spec/**/*_spec.rb']
   
