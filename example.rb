@@ -1,6 +1,5 @@
 $LOAD_PATH << File.join(File.expand_path(File.dirname(__FILE__)), 'lib')
 
-require 'eventmachine'
 require 'em_json_connection'
 
 module Server
