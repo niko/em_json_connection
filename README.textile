@@ -1,0 +1,65 @@
+h1. em_json_connection
+
+This tiny gem adds a JSON layer to a plain Eventmachine socket connection. Normally when you use socket connections it's your job to implement a protocol that defines a) where messages end and b) how messages are encoded. em_json_connection adds Yajl powered JSON en- and decoding to the game so all you do is writing stuff to the socket thats JSON encodable (Strings, Arrays, Hashes) and implement a callback on the other side that's called each time Yajl has decoded a complete JSON entity.
+
+See example.rb for... well... an example. Note the minimal setup for client and server classes:
+
+h2. Server:
+
+<pre><code>
+module Server
+  include EM::JsonConnection::Server
+  
+  def json_parsed(hash)
+    puts "Client sent: #{hash}"
+    
+    send_data hash
+  end
+end
+</code></pre>
+
+h2. Client:
+
+<pre><code>
+module Client
+  include EM::JsonConnection::Client
+  
+  def json_parsed(hash)
+    puts "Server responded: #{hash}"
+  end
+end
+</code></pre>
+
+h2. Running the server:
+
+Then you start the server in your Eventmachine eventloop like this:
+
+<pre><code>
+EM.run do
+  Server.start_at '/tmp/foo'
+  
+  EM.add_timer(5) do
+    puts 'stopping server'
+    EM.stop
+  end
+end
+</code></pre>
+
+h2. Running the client:
+
+<pre><code>
+EM.run do
+  c = Client.connect_to '/tmp/foo'
+  
+  EM.add_periodic_timer 1 do
+    c.send_data({:pid => Process.pid})
+  end
+  
+  EM.add_timer(5) do
+    puts 'stopping client'
+    EM.stop
+  end
+end
+</code></pre>
+
+Easy as pie! Have fun!
