@@ -17,7 +17,7 @@ h2. Server:
 end
 </code></pre>
 
-Sending data is simply done with the known Eventmachines @@#send_data@@ method.
+Sending data is simply done with the known Eventmachines @#send_data@ method.
 
 h2. Client:
 
