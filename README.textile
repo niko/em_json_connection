@@ -6,8 +6,7 @@ See example.rb for... well... an example. Note the minimal setup for client and 
 
 h2. Server:
 
-<pre><code>
-module Server
+<pre><code>module Server
   include EM::JsonConnection::Server
   
   def json_parsed(hash)
@@ -18,10 +17,11 @@ module Server
 end
 </code></pre>
 
+Sending data is simply done with the known Eventmachines @@#send_data@@ method.
+
 h2. Client:
 
-<pre><code>
-module Client
+<pre><code>module Client
   include EM::JsonConnection::Client
   
   def json_parsed(hash)
@@ -34,8 +34,7 @@ h2. Running the server:
 
 Then you start the server in your Eventmachine eventloop like this:
 
-<pre><code>
-EM.run do
+<pre><code>EM.run do
   Server.start_at '/tmp/foo'
   
   EM.add_timer(5) do
@@ -47,8 +46,7 @@ end
 
 h2. Running the client:
 
-<pre><code>
-EM.run do
+<pre><code>EM.run do
   c = Client.connect_to '/tmp/foo'
   
   EM.add_periodic_timer 1 do
