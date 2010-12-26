@@ -7,6 +7,7 @@ module EM::JsonConnection::Base
   def post_init
     init_parser
     @encoder = Yajl::Encoder.new
+    @connect_status = true
   end
   
   def init_parser
@@ -15,7 +16,6 @@ module EM::JsonConnection::Base
   end
   
   def receive_data(data)
-    # p data
     @parser << data
   rescue Yajl::ParseError => error
     puts "Yajl::ParseError: #{error}"
@@ -28,9 +28,14 @@ module EM::JsonConnection::Base
   
   def send_data(data)
     super @encoder.encode(data)
-  # rescue JSON::GeneratorError => error
-  #   puts "JSON::GeneratorError: #{error}"
-  #   @encoder = Yajl::Encoder.new
+  end
+  
+  def connected?
+    @connect_status
+  end
+  
+  def unbind
+    @connect_status = false
   end
 end
 

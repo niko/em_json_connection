@@ -77,6 +77,27 @@ describe EM::JsonConnection::Base do
       @connection.send_data({:a => 1})
     end
   end
+  describe "when connected" do
+    before(:each) do
+      @connection.post_init
+    end
+    describe "#connected?" do
+      it "should be true" do
+        @connection.connected?.should be_true
+      end
+    end
+  end
+  describe "when NOT connected" do
+    before(:each) do
+      @connection.post_init
+      @connection.unbind
+    end
+    describe "#connected?" do
+      it "should be false" do
+        @connection.connected?.should be_false
+      end
+    end
+  end
 end
 
 describe EM::JsonConnection::Server do
