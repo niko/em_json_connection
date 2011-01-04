@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.description  = s.summary
   
   s.add_dependency "eventmachine"
-  s.add_dependency "ruby-yajl"
+  s.add_dependency "yajl-ruby"
   
   s.files        = Dir['lib/**/*.rb']
   s.test_files   = Dir['spec/**/*_spec.rb']
